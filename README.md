@@ -1,2 +1,2 @@
-# mslearn-ai-services.es-es
-Spanish repo
+# mslearn-ai-services
+Archivos de laboratorio para módulos de Servicios de Azure AI
