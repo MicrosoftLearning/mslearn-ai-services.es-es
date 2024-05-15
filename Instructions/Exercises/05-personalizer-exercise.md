@@ -2,9 +2,7 @@
 lab:
   title: Uso del Personalizador de Azure AI con los cuadernos de Visual Studio Code para simular un bucle
 ---
-> **Importante** A partir de septiembre de 2023, ya no se pueden crear nuevos recursos de Personalizador.
-
-> **Nota** Para realizar este ejercicio, necesita una [suscripción de Azure](https://azure.microsoft.com/free?azure-portal=true).
+> **Importante** A partir de septiembre de 2023, ya no se pueden crear nuevos recursos de Personalizador. Use solo este repositorio como referencia si ya tiene un recurso de Personalizer.
 
 En este ejercicio, usará Personalizador de Azure AI con cuadernos en Visual Studio Code para simular una ruta de aprendizaje.
 
