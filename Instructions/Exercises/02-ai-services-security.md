@@ -68,7 +68,7 @@ Al crear el recurso de servicios de Azure AI, se han generado dos claves de aute
 4. Guarde todos los cambios y, a continuación, ejecute el siguiente comando:
 
     ```
-    sh rest-test.sh
+    ./rest-test.cmd
     ```
 
 El comando devuelve un documento JSON que contiene información sobre el idioma detectado en los datos de entrada (que debe ser inglés).
