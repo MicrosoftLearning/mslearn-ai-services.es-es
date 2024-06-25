@@ -23,8 +23,6 @@ Desarrollará el código mediante Visual Studio Code. Los archivos de código d
 
 5. Expanda la carpeta `Labfiles/03-monitor-ai-services`.
 
-Se ha proporcionado código para C# y Python. Expanda la carpeta del lenguaje que prefiera.
-
 ## Aprovisionamiento de un recurso de Servicios de Azure AI
 
 Si aún no tiene uno en su suscripción, deberá aprovisionar un recurso de **Servicios de Azure AI**.
