@@ -42,9 +42,9 @@ Si aún no tiene uno en su suscripción, deberá aprovisionar un recurso de **Se
 4. Espere a que se complete la implementación y, a continuación, consulte los detalles.
 5. Cuando se haya implementado el recurso, vaya a él y vea su página **Claves y punto de conexión**. Necesitará el punto de conexión y una de las claves de esta página en el procedimiento siguiente.
 
-## Implementación y ejecución de un contenedor de Text Analytics
+## Implementar y ejecutar un contenedor de análisis de sentimiento
 
-Muchas API de servicios de Azure AI de uso frecuente están disponibles en imágenes de contenedor. Para obtener una lista completa, consulta la [documentación de servicios de Azure AI](https://docs.microsoft.com/azure/cognitive-services/cognitive-services-container-support#container-availability-in-azure-cognitive-services). En este ejercicio, usará la imagen de contenedor para la API de *detección de idioma* de Text Analytics, pero los principios son los mismos para todas las imágenes disponibles.
+Muchas API de servicios de Azure AI de uso frecuente están disponibles en imágenes de contenedor. Para obtener una lista completa, consulta la [documentación de servicios de Azure AI](https://learn.microsoft.com/en-us/azure/ai-services/cognitive-services-container-support#containers-in-azure-ai-services). En este ejercicio, usarás la imagen de contenedor para la API de *análisis de sentimiento* de Text Analytics, pero los principios son los mismos para todas las imágenes disponibles.
 
 1. En Azure Portal, en la página **Inicio**, seleccione el botón **+Crear un recurso**, busque *Container Instances* y cree un recurso de **Container Instances** con la siguiente configuración:
 
@@ -53,11 +53,13 @@ Muchas API de servicios de Azure AI de uso frecuente están disponibles en imág
         - **Grupo de recursos**: *elige el grupo de recursos que contiene el recurso de servicios de Azure AI*
         - **Nombre de contenedor**: *escriba un nombre único*.
         - **Región**: *elija cualquier región disponible*
+        - **Availability Zones**: ninguno
+        - **SKU**: estándar
         - **Origen de imagen:** Otro registro
         - **Tipo de imagen**: pública
-        - **Imagen**: `mcr.microsoft.com/azure-cognitive-services/textanalytics/language:latest`
+        - **Imagen**: `mcr.microsoft.com/azure-cognitive-services/textanalytics/sentiment:latest`
         - **Tipo de SO**: Linux
-        - **Tamaño**: 1 vcpu, 12 GB de memoria
+        - **Tamaño**: 1 vCPU, 8 GB de memoria
     - **Redes**:
         - **Tipo de red**: pública
         - **Etiqueta de nombre DNS**: *escriba un nombre único para el punto de conexión del contenedor*
@@ -73,6 +75,7 @@ Muchas API de servicios de Azure AI de uso frecuente están disponibles en imág
             | No | `Eula` | `accept` |
 
         - **Invalidación de comando**: [ ]
+        - **Administración de claves**: claves administradas por Microsoft (MMK)
     - **Etiquetas**:
         - *No agregue ninguna etiqueta*
 
@@ -83,11 +86,11 @@ Muchas API de servicios de Azure AI de uso frecuente están disponibles en imág
     - **Dirección IP**: se trata de la dirección IP pública que puede usar para acceder a las instancias de contenedor.
     - **FQDN**: se trata del *nombre de dominio completo* del recurso de instancias de contenedor; puede usarlo para acceder a las instancias de contenedor en lugar de la dirección IP.
 
-    > **Nota**: en este ejercicio, has implementado la imagen de contenedor de servicios de Azure AI para la traducción de texto en un recurso de Azure Container Instances (ACI). Puedes usar un enfoque similar para implementarlo en un host de *[Docker](https://www.docker.com/products/docker-desktop)* en tu propio equipo o red mediante la ejecución del siguiente comando (en una sola línea) para implementar el contenedor de detección de idioma en la instancia local de Docker, reemplazando *&lt;yourEndpoint&gt;* y *&lt;yourKey&gt;* por el URI del punto de conexión y cualquiera de las claves del recurso de servicios de Azure AI.
+    > **Nota**: En este ejercicio, has implementado la imagen de contenedor de Servicios de Azure AI para el análisis de sentimiento en un recurso de Azure Container Instances (ACI). Puedes usar un enfoque similar para implementarlo en un host de *[Docker](https://www.docker.com/products/docker-desktop)* en tu propio equipo o red mediante la ejecución del siguiente comando (en una sola línea) para implementar el contenedor de análisis de sentimiento en la instancia local de Docker, reemplazando *&lt;yourEndpoint&gt;* y *&lt;yourKey&gt;* por el URI del punto de conexión y cualquiera de las claves del recurso de Servicios de Azure AI.
     > El comando buscará la imagen en el equipo local y, si no la encuentra, la extraerá del registro de imágenes *mcr.microsoft.com* y la implementará en la instancia de Docker. Una vez completada la implementación, el contenedor se iniciará y escuchará las solicitudes entrantes en el puerto 5000.
 
     ```
-    docker run --rm -it -p 5000:5000 --memory 12g --cpus 1 mcr.microsoft.com/azure-cognitive-services/textanalytics/language:latest Eula=accept Billing=<yourEndpoint> ApiKey=<yourKey>
+    docker run --rm -it -p 5000:5000 --memory 8g --cpus 1 mcr.microsoft.com/azure-cognitive-services/textanalytics/sentiment:latest Eula=accept Billing=<yourEndpoint> ApiKey=<yourKey>
     ```
 
 ## Uso del contenedor
@@ -95,7 +98,7 @@ Muchas API de servicios de Azure AI de uso frecuente están disponibles en imág
 1. En el editor, abra **rest-test.cmd** y edite el comando **curl** que contiene (que se muestra a continuación), y reemplace *&lt;your_ACI_IP_address_or_FQDN&gt;* por la dirección IP o el FQDN del contenedor.
 
     ```
-    curl -X POST "http://<your_ACI_IP_address_or_FQDN>:5000/text/analytics/v3.0/languages" -H "Content-Type: application/json" --data-ascii "{'documents':[{'id':1,'text':'Hello world.'},{'id':2,'text':'Salut tout le monde.'}]}"
+    curl -X POST "http://<your_ACI_IP_address_or_FQDN>:5000/text/analytics/v3.1/sentiment" -H "Content-Type: application/json" --data-ascii "{'documents':[{'id':1,'text':'The performance was amazing! The sound could have been clearer.'},{'id':2,'text':'The food and service were unacceptable. While the host was nice, the waiter was rude and food was cold.'}]}"
     ```
 
 2. Presione **CTRL+S** para guardar los cambios en el script. Ten en cuenta que no es necesario especificar el punto de conexión o la clave de servicios de Azure AI, pues el servicio de contenedor procesa la solicitud. A su vez, el contenedor se comunica periódicamente con el servicio en Azure para notificar el uso para la facturación, pero no envía datos de solicitud.
@@ -105,7 +108,7 @@ Muchas API de servicios de Azure AI de uso frecuente están disponibles en imág
     ./rest-test.cmd
     ```
 
-4. Compruebe que el comando devuelve un documento JSON que contiene información sobre el idioma detectado en los dos documentos de entrada (que debe ser inglés y francés).
+4. Comprueba que el comando devuelve un documento JSON que contiene información sobre la opinión detectada en los dos documentos de entrada (que debe ser positiva y negativa, en ese orden).
 
 ## Limpieza
 
