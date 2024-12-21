@@ -10,8 +10,6 @@ El uso de servicios de Azure AI hospedados en Azure permite a los desarrolladore
 
 Muchas de las API de servicios de Azure AI se pueden empaquetar e implementar en un *contenedor*, lo que permite que las organizaciones hospeden servicios de Azure AI en su propia infraestructura; por ejemplo, en servidores Docker locales, Azure Container Instances o clústeres de Azure Kubernetes Services. Los servicios de Azure AI en contenedores deben comunicarse con una cuenta de servicios de Azure AI basados en Azure para admitir la facturación; pero los datos de la aplicación no se pasan al servicio back-end y las organizaciones tienen un mayor control sobre la configuración de implementación de sus contenedores, lo que permite soluciones personalizadas para la autenticación, la escalabilidad y otras consideraciones.
 
-> **Nota**: Actualmente se está investigando un problema con el que se encuentran algunos usuarios por el que los contenedores no se implementan correctamente y las llamadas a esos contenedores producen errores. En cuanto se haya resuelto el problema, se realizarán actualizaciones en este laboratorio.
-
 ## Clonación del repositorio en Visual Studio Code
 
 Desarrollará el código mediante Visual Studio Code. Los archivos de código de la aplicación se han proporcionado en un repositorio de GitHub.
