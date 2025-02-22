@@ -30,7 +30,7 @@ Desarrollará el código mediante Visual Studio Code. Los archivos de código d
 Si aún no tiene uno en su suscripción, deberá aprovisionar un recurso de **Servicios de Azure AI**.
 
 1. Inicie sesión en Azure Portal en `https://portal.azure.com` y regístrese con la cuenta de Microsoft asociada a su suscripción de Azure.
-2. En la barra de búsqueda superior, busque *Servicios de Azure AI*, seleccione **Servicios de Azure AI** y cree un recurso de cuenta de varios servicios de Azure AI con la siguiente configuración:
+2. En la barra de búsqueda superior, busca *Servicios de Azure AI*, selecciona **Cuenta de varios servicios de Azure AI** y crea un recurso con la siguiente configuración:
     - **Suscripción**: *suscripción de Azure*
     - **Grupo de recursos**: *elija o cree un grupo de recursos (si usa una suscripción restringida, es posible que no tenga permiso para crear un nuevo grupo de recursos; use el proporcionado)*
     - **Región**: *elija cualquier región disponible*
