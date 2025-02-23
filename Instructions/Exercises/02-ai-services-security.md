@@ -32,7 +32,7 @@ Se ha proporcionado código para C# y Python. Expanda la carpeta del lenguaje qu
 Si aún no tiene uno en su suscripción, deberá aprovisionar un recurso de **Servicios de Azure AI**.
 
 1. Inicie sesión en Azure Portal en `https://portal.azure.com` y regístrese con la cuenta de Microsoft asociada a su suscripción de Azure.
-2. En la barra de búsqueda superior, busque *Servicios de Azure AI*, seleccione **Servicios de Azure AI** y cree un recurso de cuenta de varios servicios de Azure AI con la siguiente configuración:
+2. En la barra de búsqueda superior, busca *Servicios de Azure AI*, selecciona **Cuenta de varios servicios de Azure AI** y crea un recurso con la siguiente configuración:
     - **Suscripción**: *suscripción de Azure*
     - **Grupo de recursos**: *elija o cree un grupo de recursos (si usa una suscripción restringida, es posible que no tenga permiso para crear un nuevo grupo de recursos; use el proporcionado)*
     - **Región**: *elija cualquier región disponible*
@@ -68,7 +68,7 @@ Al crear el recurso de servicios de Azure AI, se han generado dos claves de aute
     curl -X POST "<yourEndpoint>/language/:analyze-text?api-version=2023-04-01" -H "Content-Type: application/json" -H "Ocp-Apim-Subscription-Key: <your-key>" --data-ascii "{'analysisInput':{'documents':[{'id':1,'text':'hello'}]}, 'kind': 'LanguageDetection'}"
     ```
 
-3. Guarde los cambios. En el terminal, navega a la carpeta "02-ai-services-security". (**Nota**: para ello, haz clic con el botón derecho en la carpeta 02-ai-services-security" del explorador y selecciona *Abrir en terminal integrado*). Luego, ejecute el siguiente comando:
+3. Guarda los cambios. En el terminal, navega a la carpeta "02-ai-services-security". (**Nota**: para ello, haz clic con el botón derecho en la carpeta 02-ai-services-security" del explorador y selecciona *Abrir en terminal integrado*). Luego, ejecute el siguiente comando:
 
     ```
     ./rest-test.cmd

@@ -29,7 +29,7 @@ Si aún no tienes uno, deberás aprovisionar un recurso de **seguridad del conte
 
 ## Uso de los escudos de avisos de Seguridad del contenido de Azure AI
 
-En este ejercicio, usarás Azure AI Studio para probar los escudos de avisos de seguridad del contenido con dos entradas de muestra. Uno simula un mensaje de usuario y el otro simula un documento con texto potencialmente no seguro insertado en él.
+En este ejercicio, usarás Fundición de IA de Azure para probar los escudos de avisos de seguridad del contenido con dos entradas de muestra. Uno simula un mensaje de usuario y el otro simula un documento con texto potencialmente no seguro insertado en él.
 
 1. En otra pestaña del explorador, abre la página Seguridad del contenido de [Inteligencia artificial de Azure Studio](https://ai.azure.com/explore/contentsafety) e inicia sesión.
 1. En **Moderar el contenido del texto** selecciona **Pruébalo**.
