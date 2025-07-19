@@ -16,8 +16,8 @@ Desarrollará el código mediante Visual Studio Code. Los archivos de código d
 
 > **Sugerencia**: si ya ha clonado el repositorio **mslearn-ai-services** recientemente, ábralo en Visual Studio Code. De lo contrario, siga estos pasos para clonarlo en el entorno de desarrollo.
 
-1. Inicie Visual Studio Code.
-2. Abra la paleta (Mayús + Ctrl + P) y ejecute un comando **Git: Clone** para clonar el repositorio `https://github.com/MicrosoftLearning/mslearn-ai-services` en una carpeta local (no importa qué carpeta).
+1. Inicia Visual Studio Code.
+2. Abre la paleta (Mayús + Ctrl + P) y ejecuta un comando **Git: Clone** para clonar el repositorio `https://github.com/MicrosoftLearning/mslearn-ai-services` en una carpeta local (no importa qué carpeta).
 3. Cuando se haya clonado el repositorio, abra la carpeta en Visual Studio Code.
 4. Espere mientras se instalan archivos adicionales para admitir los proyectos de código de C# en el repositorio, si es necesario
 
@@ -97,6 +97,9 @@ Puedes desarrollar aplicaciones que consuman servicios de Azure AI mediante una 
 
 En primer lugar, debes crear un almacén de claves y agregar un *secreto* para la clave de servicios de Azure AI.
 
+Elija un método de para crear un almacén de claves y agregar un secreto:
+
+#### Uso de Azure Portal
 1. Anota el valor de **key1** del recurso de servicios de Azure AI (o cópialo en el Portapapeles).
 2. En la Azure Portal, en la página **Inicio**, seleccione el botón **&#65291;Crear un recurso**, busque *Key Vault* y cree un recurso de **Key Vault** con la siguiente configuración:
 
@@ -118,6 +121,33 @@ En primer lugar, debes crear un almacén de claves y agregar un *secreto* para l
     - **Nombre**: AI-Services-Key *(es importante que coincida exactamente, porque más adelante ejecutará código que recuperará el secreto basado en este nombre)*
     - **Valor secreto**: *tu clave de servicios de Azure AI **key1***
 6. Seleccione **Crear**.
+
+#### Mediante la CLI de Azure
+Como alternativa, puede usar la CLI de Azure para crear un almacén de claves y agregar un secreto.
+
+1. En Visual Studio Code, abra una ventana de terminal.
+2. Para crear una instancia de Key Vault, ejecute el comando siguiente y reemplace `<keyVaultName>`, `<resourceGroup>` y `<location>` por el nombre de la instancia de Key Vault deseada, el nombre del grupo de recursos y la región de Azure (por ejemplo, `eastus`):
+
+    ```
+    az keyvault create \
+      --name <key-vault-name> \
+      --resource-group <resource-group-name> \
+      --location <region> \
+      --sku standard \
+      --enable-rbac-authorization false
+    ```
+    La marca `--enable-rbac-authorization false` garantiza que el modelo de permisos esté establecido en "Directiva de acceso del almacén" (valor predeterminado).
+
+3. Agregue la clave de Servicios de Azure AI como un secreto en Key Vault. Reemplace `<keyVaultName>` por el nombre de la instancia de Key Vault y `<your-key1-value>` por el valor de la clave 1 de Servicios de Azure AI:
+
+    ```
+    az keyvault secret set \
+    --vault-name <key-vault-name> \
+    --name AI-Services-Key \
+    --value <your-azure-ai-services-key>
+    ```
+
+Ahora ha creado una instancia de Key Vault y ha almacenado la clave de Servicios de Azure AI como un secreto denominado `AI-Services-Key`.
 
 ### Creación de una entidad de servicio
 
